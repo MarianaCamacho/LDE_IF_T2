@@ -56,7 +56,60 @@ public:
     
 };
 
-
+void LDE::Imprimir()
+{
+    if(!Inicio)
+        cout<<"Lista Vacias"<<endl;
+    else
+    {
+        Nodo *Aux=Inicio;
+        while(Aux!=NULL)
+        {
+            Aux->Imprimir();
+            Aux=Aux->Obtienesig();
+        }
+    }
+}
+void LDE::ImprimirR()
+{
+    if(!Inicio)
+        cout<<"Lista Vacia"<<endl;
+    else
+    {
+        Nodo *Aux=Fin;
+        while(Aux!=NULL)
+        {
+            Aux->Imprimir();
+            Aux=Aux->Obtieneant();
+        }
+    }
+}
+void LDE::Borrar(int x)
+{
+    Nodo *simi=Buscar(x);
+    if(simi==NULL)
+        cout<<"DATO NO ENCONTRADO";
+    else
+    {
+        if(simi==Inicio)
+            BorrarI();
+        else
+        {
+            if(simi==Fin)
+                BorrarF();
+            else
+            {
+                Nodo *XL=simi->Obtieneant();
+                XL->Asignasig(simi->Obtienesig());
+                simi->Obtienesig()->Asignaant(XL);
+                simi->Asignasig(NULL);
+                simi->Asignaant(NULL);
+                delete simi;
+            }
+        }
+        
+    }
+}
 void Nodo::Asignasig(Nodo *x)
 {
     this->sig=x;
